@@ -82,6 +82,7 @@ class Verden:
                 for celle in linje:
                     liste.append(celle)
                 self._rutenett.append(liste)
+            self._rutenett[y][x] = "O"
             if self._teller == len(self._level_animasjon) -1:
                 status = "n"
         else:
@@ -95,13 +96,9 @@ class Verden:
                 for celle in linje:
                     liste.append(celle)
                 self._rutenett.append(liste)
+            self._rutenett[y][x] = "O"
             if self._teller == 0:
                 status = "o"
-        if self._rutenett[y][x] == "¯":
-            self._rutenett[y - 1][x] = "O"
-        else:
-            self._rutenett[y][x] = "O"
-        self.beveg(0, 1)
         return status
 
     def beveg_tick(self):
@@ -148,5 +145,9 @@ class Verden:
                 return True
             s = self.beveg_rutenett(s)
             self.skriv_ut()
-            
+
+                
+
 Verden(liste).start_spill()
+
+
