@@ -5,7 +5,7 @@ class Verden:
     def clear_terminal(self):
         _ = os.system('cls')
 
-    def __init__(self, level_animasjon):
+    def __init__(self, level_animasjon, x, y):
         self._teller = 0
         self._level_animasjon = level_animasjon
         self._level = level_animasjon[0]
@@ -15,7 +15,7 @@ class Verden:
             for celle in linje:
                 liste.append(celle)
             self._rutenett.append(liste)
-        self._rutenett[13][1] = "O"
+        self._rutenett[y][x] = "O"
         self._hopper = False
 
     def skriv_ut(self):
@@ -60,16 +60,6 @@ class Verden:
             return True
         return False
 
-    def fall(self):
-        for n in range(14):
-            forrige = self.rad()
-            self.skriv_ut()
-            self.beveg(0, 1)
-            if forrige == self.rad():
-                break
-            time.sleep(0.1)
-        self.skriv_ut()
-
     def beveg_rutenett(self, status):
         if status == "o":
             self._teller += 1
@@ -103,7 +93,7 @@ class Verden:
             self._rutenett[y][x] = "O"
         self.beveg(0, 1)
         return status
-
+    
     def beveg_tick(self):
         self._hopper = False
         start = time.time()
@@ -141,7 +131,7 @@ class Verden:
         while status == True:
             status = self.beveg_tick()
             self.skriv_ut()
-            self.fall()
+            self.beveg(0,1)
             if self.sjekk_doed():
                 return False
             if self.sjekk_vinn():
@@ -149,4 +139,4 @@ class Verden:
             s = self.beveg_rutenett(s)
             self.skriv_ut()
             
-Verden(liste).start_spill()
+Verden(liste, 1, 3).start_spill()
